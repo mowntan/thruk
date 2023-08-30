@@ -1,0 +1,21 @@
+FROM registry.access.redhat.com/ubi8/ubi-init
+
+ENV THRUK_VERSION=3.02
+
+USER root
+#RUN yum -y install wget perl git procps-ng automake make gcc rsync gd-devel mariadb-devel patch chrpath perl-Module-Install httpd mod_fcgid
+RUN yum -y install wget perl git 
+# Add consol repo and install thruk
+RUN wget --no-check-certificate https://labs.consol.de/repo/stable/rhel8/i386/labs-consol-stable.rhel8.noarch.rpm
+RUN rpm -Uvh ./labs-consol-stable.rhel8.noarch.rpm
+RUN yum -y install --nogpgcheck thruk-$THRUK_VERSION
+# Remove entitlements
+
+#COPY ./thruk_local.conf /etc/thruk/
+
+RUN systemctl enable httpd.service
+
+USER thruk
+
+CMD ["/sbin/init"]
+
