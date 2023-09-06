@@ -8,10 +8,17 @@ USER root
 RUN yum -y install wget perl git httpd gcc
 
 RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
-
 RUN systemctl enable httpd.service
 
 USER thruk
+RUN git clone git clone https://github.com/sni/thruk_libs.git /tmp/thruk_libs
+WORKDIR /tmp/thruk_libs
+RUN make
+RUN git clone git clone https://github.com/sni/Thruk.git /tmp/Thruk
+WORKDIR /tmp/Thruk
+RUN ./configure
+RUN make
+
 
 CMD ["/sbin/init"]
 
