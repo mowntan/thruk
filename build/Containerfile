@@ -7,7 +7,7 @@ USER root
 #RUN yum -y install wget perl git procps-ng automake make gcc rsync gd-devel mariadb-devel patch chrpath perl-Module-Install httpd mod_fcgid
 RUN yum -y install wget perl git httpd gcc
 
-RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -G $THRUK_USER
+RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
 
 RUN systemctl enable httpd.service
 
