@@ -4,7 +4,7 @@ ENV THRUK_VERSION=3.02
 ENV THRUK_USER=thruk
 
 USER root
-RUN yum -y install wget perl git procps-ng automake make gcc rsync gd-devel mariadb-devel patch chrpath perl-Module-Install httpd mod_fcgid
+RUN yum -y install wget perl git procps-ng automake make gcc rsync gd-devel mysql-devel patch httpd mod_fcgid
 
 RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
 RUN systemctl enable httpd.service
