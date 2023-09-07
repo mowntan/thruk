@@ -8,6 +8,7 @@ RUN yum -y install wget perl git automake make gcc rsync gd-devel mariadb-connec
 
 # Workaround until chrpath is available in baseOS repos
 RUN export ARCH=$(uname -m);echo $ARCH;
+ENV ARCH=$ARCH
 RUN yum -y install https://rpmfind.net/linux/centos/8-stream/BaseOS/$ARCH/os/Packages/chrpath-0.16-7.el8.$ARCH.rpm
 
 RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
