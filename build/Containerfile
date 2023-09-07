@@ -7,9 +7,7 @@ USER root
 RUN yum -y install wget perl git automake make gcc rsync gd-devel mariadb-connector-c-devel patch httpd mod_fcgid
 
 # Workaround until chrpath is available in baseOS repos
-ARG BUILDARCH
-ENV ARCH=$BUILDARCH
-RUN yum -y install https://rpmfind.net/linux/centos/8-stream/BaseOS/$ARCH/os/Packages/chrpath-0.16-7.el8.$ARCH.rpm
+RUN yum -y install https://rpmfind.net/linux/centos-stream/9-stream/BaseOS/x86_64/os/Packages/chrpath-0.16-17.el9.x86_64.rpm
 
 RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
 RUN systemctl enable httpd.service
