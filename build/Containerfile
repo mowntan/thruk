@@ -4,7 +4,7 @@ ENV THRUK_VERSION=3.02
 ENV THRUK_USER=thruk
 
 USER root
-RUN yum -y install wget perl git automake make gcc rsync gd-devel mariadb-connector-c-devel patch httpd mod_fcgid
+RUN yum -y install wget perl git automake make gcc glibc rsync gd-devel mariadb-connector-c-devel patch httpd mod_fcgid
 
 # Workaround until chrpath is available in baseOS repos
 RUN yum -y install https://rpmfind.net/linux/centos-stream/9-stream/BaseOS/x86_64/os/Packages/chrpath-0.16-17.el9.x86_64.rpm
