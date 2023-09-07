@@ -4,6 +4,7 @@ ENV THRUK_VERSION=3.02
 ENV THRUK_USER=thruk
 
 USER root
+RUN rm /etc/rhsm-host
 RUN yum -y install wget perl git automake make gcc glibc rsync gd-devel mariadb-connector-c-devel patch httpd mod_fcgid
 
 # Workaround until chrpath is available in UBI baseOS repos
