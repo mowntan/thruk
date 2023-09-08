@@ -1,6 +1,7 @@
 FROM registry.access.redhat.com/ubi8/ubi-init
 
-ENV THRUK_VERSION=3.02
+ENV THRUK_VERSION=3.08.3-12419.1
+ENV THRUK_LIB_VERSION=3.00-0
 ENV THRUK_USER=thruk
 
 USER root
@@ -17,25 +18,35 @@ RUN yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/o
 RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
 RUN systemctl enable httpd.service
 
-USER thruk
-RUN git clone https://github.com/sni/thruk_libs.git /tmp/thruk_libs
-WORKDIR /tmp/thruk_libs
-RUN make
-RUN git clone https://github.com/sni/Thruk.git /tmp/Thruk
-WORKDIR /tmp/Thruk
-RUN ./configure
-RUN make
+# Add consol repo and install thruk
+RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/libthruk-$THRUK_LIB_VERSION.rhel8.x86_64.rpm
+RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-$THRUK_VERSION.rhel8.x86_64.rpm
+
+
+
 
 
 CMD ["/sbin/init"]
 
-
-
-# Add consol repo and install thruk
-#RUN wget --no-check-certificate https://labs.consol.de/repo/stable/rhel8/i386/labs-consol-stable.rhel8.noarch.rpm
-#RUN rpm -Uvh ./labs-consol-stable.rhel8.noarch.rpm
-#RUN yum -y install --nogpgcheck thruk-$THRUK_VERSION
-# Remove entitlements
-
 #COPY ./thruk_local.conf /etc/thruk/
+
+
+
+
+
+# COMMANDS IF COMPILING
+#USER thruk
+#RUN git clone https://github.com/sni/thruk_libs.git /tmp/thruk_libs
+#WORKDIR /tmp/thruk_libs
+#RUN make
+#RUN git clone https://github.com/sni/Thruk.git /tmp/Thruk
+#WORKDIR /tmp/Thruk
+#RUN ./configure
+#RUN make
+
+
+
+
+
+
 
