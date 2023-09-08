@@ -28,8 +28,6 @@ RUN systemctl enable httpd.service
 
 EXPOSE 80
 
-USER thruk
-
 CMD ["/sbin/init"]
 
 #COPY ./thruk_local.conf /etc/thruk/
