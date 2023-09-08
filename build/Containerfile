@@ -9,19 +9,19 @@ RUN rm /etc/rhsm-host
 RUN yum -y install wget perl git automake make gcc glibc rsync gd-devel mariadb-connector-c-devel patch httpd mod_fcgid
 
 # Workaround until chrpath is available in UBI baseOS repos
-RUN yum -y install https://rpmfind.net/linux/centos/8-stream/BaseOS/x86_64/os/Packages/chrpath-0.16-7.el8.x86_64.rpm
-RUN yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-File-Remove-1.57-6.el8.noarch.rpm
-RUN yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-Module-ScanDeps-1.24-3.el8.noarch.rpm
-RUN yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-YAML-Tiny-1.73-2.el8.noarch.rpm
-RUN yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-Module-Install-1.19-2.el8.noarch.rpm
+#RUN yum -y install https://rpmfind.net/linux/centos/8-stream/BaseOS/x86_64/os/Packages/chrpath-0.16-7.el8.x86_64.rpm
+#RUN yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-File-Remove-1.57-6.el8.noarch.rpm
+#RUN yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-Module-ScanDeps-1.24-3.el8.noarch.rpm
+#RUN yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-YAML-Tiny-1.73-2.el8.noarch.rpm
+#RUN yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-Module-Install-1.19-2.el8.noarch.rpm
 
-RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
+#RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
 
 # Add consol repo and install thruk
-RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/libthruk-$THRUK_LIB_VERSION.rhel8.x86_64.rpm
-RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-base-$THRUK_VERSION.rhel8.x86_64.rpm
-RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-plugin-reporting-$THRUK_VERSION.rhel8.x86_64.rpm
-RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-$THRUK_VERSION.rhel8.x86_64.rpm
+#RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/libthruk-$THRUK_LIB_VERSION.rhel8.x86_64.rpm
+#RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-base-$THRUK_VERSION.rhel8.x86_64.rpm
+#RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-plugin-reporting-$THRUK_VERSION.rhel8.x86_64.rpm
+#RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-$THRUK_VERSION.rhel8.x86_64.rpm
 
 
 RUN systemctl enable httpd.service
