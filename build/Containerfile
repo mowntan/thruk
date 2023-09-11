@@ -33,7 +33,7 @@ EXPOSE 80
 # DEBUG
 COPY ./entrypoint.sh /
 COPY ./httpd.sh /
-ENTRYPOINT ["bash"]
+ENTRYPOINT ["httpd.sh"]
 
 
 # COMMANDS IF COMPILING
