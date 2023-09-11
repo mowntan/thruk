@@ -1,1 +1,0 @@
-httpd -D FOREGORUND
