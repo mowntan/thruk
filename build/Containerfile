@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi
+FROM registry.access.redhat.com/ubi8/ubi-init
 
 ENV THRUK_VERSION=3.08.3-12419.1
 ENV THRUK_LIB_VERSION=3.00-0
@@ -9,30 +9,29 @@ USER root
 RUN yum -y install wget perl git automake make gcc glibc rsync gd-devel mariadb-connector-c-devel patch httpd mod_fcgid
 
 # Workaround until chrpath is available in UBI baseOS repos
-RUN yum -y install https://rpmfind.net/linux/centos/8-stream/BaseOS/x86_64/os/Packages/chrpath-0.16-7.el8.x86_64.rpm && \
-    yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-File-Remove-1.57-6.el8.noarch.rpm && \
-    yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-Module-ScanDeps-1.24-3.el8.noarch.rpm && \
-    yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-YAML-Tiny-1.73-2.el8.noarch.rpm && \
-    yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-Module-Install-1.19-2.el8.noarch.rpm
-
-RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
-
-# Add consol repo and install thruk
-RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/libthruk-$THRUK_LIB_VERSION.rhel8.x86_64.rpm && \
-    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-base-$THRUK_VERSION.rhel8.x86_64.rpm && \
-    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-plugin-reporting-$THRUK_VERSION.rhel8.x86_64.rpm && \
-    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-$THRUK_VERSION.rhel8.x86_64.rpm
+#RUN yum -y install https://rpmfind.net/linux/centos/8-stream/BaseOS/x86_64/os/Packages/chrpath-0.16-7.el8.x86_64.rpm && \
+#    yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-File-Remove-1.57-6.el8.noarch.rpm && \
+#    yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-Module-ScanDeps-1.24-3.el8.noarch.rpm && \
+#    yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-YAML-Tiny-1.73-2.el8.noarch.rpm && \
+#    yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-Module-Install-1.19-2.el8.noarch.rpm
+#
+#RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
+#
+## Add consol repo and install thruk
+#RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/libthruk-$THRUK_LIB_VERSION.rhel8.x86_64.rpm && \
+#    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-base-$THRUK_VERSION.rhel8.x86_64.rpm && \
+#    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-plugin-reporting-$THRUK_VERSION.rhel8.x86_64.rpm && \
+#    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-$THRUK_VERSION.rhel8.x86_64.rpm
 
 #Configure thruk
 #ADD thruk_local.conf /etc/thruk/
 #ADD cgi.cfg /etc/thruk/
 #ADD apache_fcgid.conf /etc/httpd/conf.modules.d/
 
-EXPOSE 80
 
-# Start the service
-CMD ["-D", "FOREGROUND"]
-ENTRYPOINT ["/usr/sbin/httpd"]
+RUN systemctl enable httpd
+EXPOSE 8080
+CMD [ "/sbin/init" ]
 
 
 # COMMANDS IF COMPILING
