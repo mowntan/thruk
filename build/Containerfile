@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi-init
+FROM registry.access.redhat.com/ubi8/ubi
 
 ENV THRUK_VERSION=3.08.3-12419.1
 ENV THRUK_LIB_VERSION=3.00-0
@@ -23,13 +23,13 @@ RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
 #    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-plugin-reporting-$THRUK_VERSION.rhel8.x86_64.rpm && \
 #    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-$THRUK_VERSION.rhel8.x86_64.rpm
 
+RUN sed -i 's/^Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
+
 #Configure thruk
 #ADD thruk_local.conf /etc/thruk/
 #ADD cgi.cfg /etc/thruk/
 #ADD apache_fcgid.conf /etc/httpd/conf.modules.d/
-RUN systemctl enable httpd.service
 
-USER thruk
 
 EXPOSE 8080
 
