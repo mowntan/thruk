@@ -24,7 +24,7 @@ RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
 #    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-$THRUK_VERSION.rhel8.x86_64.rpm
 
 RUN sed -i 's/^Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
-RUN sed -i 's/root/apache/g /usr/lib/tmpfiles.d/httpd.conf
+RUN sed -i 's/root/apache/g' /usr/lib/tmpfiles.d/httpd.conf
 
 RUN chown -R apache:apache /var/log/httpd
 RUN chown -R apache:apache /run/httpd
