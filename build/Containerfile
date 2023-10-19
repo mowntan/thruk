@@ -29,6 +29,7 @@ RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/libthruk-$THR
 # Directory setup for Thruk
 RUN mkdir -p /var/cache/thruk/ && chmod 777 /var/cache/thruk/
 RUN mkdir -p /var/log/thruk/ && chmod 777 /var/log/thruk/
+RUN chown 1001:0 /etc/thruk/bp /etc/thruk/cgi.cfg /etc/thruk/panarama /etc/thruk/thruk_local.conf
 
 #RUN sed -i 's/^Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
 #RUN sed -i 's/root/apache/g' /usr/lib/tmpfiles.d/httpd.conf
