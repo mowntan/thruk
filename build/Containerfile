@@ -17,7 +17,7 @@ RUN yum -y install https://rpmfind.net/linux/centos/8-stream/BaseOS/x86_64/os/Pa
     yum -y install https://rpmfind.net/linux/centos/8-stream/PowerTools/x86_64/os/Packages/perl-Module-Install-1.19-2.el8.noarch.rpm
 
 # Setup for fcgid
-RUN mkdir -p /var/run/mod_fcgid && chown -R apache:apache /var/run/mod_fcgid && chmod 777 /var/run/mod_fcgid
+RUN mkdir -p /var/run/mod_fcgid && chmod 777 /var/run/mod_fcgid
 
 # Thruk Installation
 RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
@@ -27,7 +27,8 @@ RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/libthruk-$THR
     yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-plugin-reporting-$THRUK_VERSION.rhel8.x86_64.rpm && \
     yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-$THRUK_VERSION.rhel8.x86_64.rpm
 # Directory setup for Thruk
-RUN mkdir -p /var/cache/thruk/ && chown -R apache:apache /var/cache/thruk/ && chmod 777 /var/cache/thruk/
+RUN mkdir -p /var/cache/thruk/ && chmod 777 /var/cache/thruk/
+RUN mkdir -p /var/log/thruk/ && chmod 777 /var/log/thruk/
 
 #RUN sed -i 's/^Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
 #RUN sed -i 's/root/apache/g' /usr/lib/tmpfiles.d/httpd.conf
