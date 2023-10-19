@@ -7,7 +7,7 @@ ENV THRUK_USER=thruk
 
 USER root
 #RUN rm /etc/rhsm-host
-RUN dnf -y install wget perl git automake make gcc glibc rsync gd-devel mariadb-connector-c-devel patch net-tools #mod_fcgid
+RUN dnf -y install wget perl git automake make gcc glibc rsync gd-devel mariadb-connector-c-devel patch net-tools mod_fcgid
 
 # Workaround until chrpath is available in UBI baseOS repos
 #RUN yum -y install https://rpmfind.net/linux/centos/8-stream/BaseOS/x86_64/os/Packages/chrpath-0.16-7.el8.x86_64.rpm && \
@@ -23,6 +23,12 @@ RUN dnf -y install wget perl git automake make gcc glibc rsync gd-devel mariadb-
 #    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-base-$THRUK_VERSION.rhel8.x86_64.rpm && \
 #    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-plugin-reporting-$THRUK_VERSION.rhel8.x86_64.rpm && \
 #    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-$THRUK_VERSION.rhel8.x86_64.rpm
+
+
+# Setup for fcgid
+RUN mkdir -p /var/run/mod_fcgid
+RUN chown -R apache:apache /var/run/mod_fcgid
+
 
 #RUN sed -i 's/^Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
 #RUN sed -i 's/root/apache/g' /usr/lib/tmpfiles.d/httpd.conf
