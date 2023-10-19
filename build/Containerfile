@@ -5,9 +5,9 @@ ENV THRUK_VERSION=3.08.3-12419.1
 ENV THRUK_LIB_VERSION=3.00-0
 ENV THRUK_USER=thruk
 
-#USER root
+USER root
 #RUN rm /etc/rhsm-host
-#RUN dnf -y install wget perl git automake make gcc glibc rsync gd-devel mariadb-connector-c-devel patch mod_fcgid
+RUN dnf -y install wget perl git automake make gcc glibc rsync gd-devel mariadb-connector-c-devel patch mod_fcgid net-tools
 
 # Workaround until chrpath is available in UBI baseOS repos
 #RUN yum -y install https://rpmfind.net/linux/centos/8-stream/BaseOS/x86_64/os/Packages/chrpath-0.16-7.el8.x86_64.rpm && \
