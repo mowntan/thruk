@@ -19,10 +19,10 @@ RUN yum -y install https://rpmfind.net/linux/centos/8-stream/BaseOS/x86_64/os/Pa
 RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
 
 ## Add consol repo and install thruk
-#RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/libthruk-$THRUK_LIB_VERSION.rhel8.x86_64.rpm && \
-#    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-base-$THRUK_VERSION.rhel8.x86_64.rpm && \
-#    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-plugin-reporting-$THRUK_VERSION.rhel8.x86_64.rpm && \
-#    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-$THRUK_VERSION.rhel8.x86_64.rpm
+RUN yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/libthruk-$THRUK_LIB_VERSION.rhel8.x86_64.rpm && \
+    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-base-$THRUK_VERSION.rhel8.x86_64.rpm && \
+    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-plugin-reporting-$THRUK_VERSION.rhel8.x86_64.rpm && \
+    yum -y install https://labs.consol.de/repo/stable/rhel8/x86_64/thruk-$THRUK_VERSION.rhel8.x86_64.rpm
 
 
 # Setup for fcgid
