@@ -1,4 +1,5 @@
-FROM registry.access.redhat.com/ubi8/ubi
+FROM registry.access.redhat.com/ubi8/ubi-init
+#FROM registry.access.redhat.com/ubi8/httpd-24
 
 ENV THRUK_VERSION=3.08.3-12419.1
 ENV THRUK_LIB_VERSION=3.00-0
@@ -6,7 +7,7 @@ ENV THRUK_USER=thruk
 
 USER root
 #RUN rm /etc/rhsm-host
-RUN dnf -y install wget perl git automake make gcc glibc rsync gd-devel mariadb-connector-c-devel patch httpd mod_fcgid
+RUN dnf -y install wget perl git automake make gcc glibc rsync gd-devel mariadb-connector-c-devel patch mod_fcgid httpd
 
 # Workaround until chrpath is available in UBI baseOS repos
 #RUN yum -y install https://rpmfind.net/linux/centos/8-stream/BaseOS/x86_64/os/Packages/chrpath-0.16-7.el8.x86_64.rpm && \
@@ -26,21 +27,21 @@ RUN groupadd -r $THRUK_USER && useradd -r $THRUK_USER -g $THRUK_USER
 RUN sed -i 's/^Listen 80/Listen 8080/g' /etc/httpd/conf/httpd.conf
 RUN sed -i 's/root/apache/g' /usr/lib/tmpfiles.d/httpd.conf
 
-RUN chown -R apache:apache /var/log/httpd
-RUN chown -R apache:apache /run/httpd
+RUN chown -R apache:apache /var/log/httpd/
+RUN chown -R apache:apache /run/httpd/
 
 #Configure thruk
 #ADD thruk_local.conf /etc/thruk/
 #ADD cgi.cfg /etc/thruk/
 #ADD apache_fcgid.conf /etc/httpd/conf.modules.d/
 
+RUN systemctl enable httpd
 
 EXPOSE 8080
 
-
 USER apache
 
-ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+#ENTRYPOINT ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 
 # COMMANDS IF COMPILING
 #USER thruk
